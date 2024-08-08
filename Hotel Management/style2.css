@@ -1,0 +1,16 @@
+#form{
+    width: 50%;
+    height:100%;
+    margin:0 auto;
+    box-shadow:10px 10px 10px;
+    border:1px;
+    background-color: aliceblue;
+    
+}
+body{
+    background-image: url("Background image.webp");
+    background-attachment: scroll;
+    background-size:100vw;
+    min-height:calc(100vh-100px);
+    
+}
