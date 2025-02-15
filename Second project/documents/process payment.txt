@@ -1,0 +1,28 @@
+<?php
+// process_payment.php
+include('db_connection.php'); // Include database connection file
+
+// Get payment details from POST request
+$booking_id = $_POST['booking_id'];
+$user_id = $_POST['user_id'];
+$amount = $_POST['amount'];
+$payment_method = $_POST['payment_method'];
+
+// You may simulate or integrate with a payment gateway here. For simplicity, we will assume a successful payment.
+
+$payment_status = "Success"; // This would normally come from the payment gateway (success or failure)
+$transaction_id = uniqid('txn_'); // Generate a unique transaction ID
+
+// Insert payment information into database
+$query = "INSERT INTO payments (booking_id, user_id, amount, payment_status, payment_method, transaction_id) 
+          VALUES ('$booking_id', '$user_id', '$amount', '$payment_status', '$payment_method', '$transaction_id')";
+
+if (mysqli_query($conn, $query)) {
+    echo "Payment successful. Transaction ID: " . $transaction_id;
+} else {
+    echo "Error: " . $query . "<br>" . mysqli_error($conn);
+}
+
+// Close the database connection
+mysqli_close($conn);
+?>

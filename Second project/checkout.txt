@@ -1,0 +1,35 @@
+<?php include 'db.php'; ?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hotel Check-out</title>
+</head>
+<body>
+
+<h2>Check-out</h2>
+
+<form action="checkout.php" method="POST">
+    Booking ID: <input type="number" name="id" required><br><br>
+    <input type="submit" name="checkout" value="Check-out">
+</form>
+
+<?php
+if (isset($_POST['checkout'])) {
+    $id = $_POST['id'];
+
+    $sql = "UPDATE bookings SET status = 'checked_out' WHERE id = $id";
+
+    if ($conn->query($sql) === TRUE) {
+        echo "Check-out successful!";
+    } else {
+        echo "Error: " . $sql . "<br>" . $conn->error;
+    }
+}
+?>
+
+</body>
+</html>
+

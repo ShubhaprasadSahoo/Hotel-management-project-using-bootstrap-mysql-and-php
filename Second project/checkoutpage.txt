@@ -1,0 +1,49 @@
+<?php
+// Connect to the database
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "hotel_management";
+
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $guest_name = $_POST['guest_name'];
+    $check_out_date = date("Y-m-d H:i:s");
+
+    // Update the guest's status and check-out date
+    $sql = "UPDATE guest_details 
+            SET check_out_date='$check_out_date', status='Checked Out'
+            WHERE guest_name='$guest_name' AND status='Checked In'";
+
+    if ($conn->query($sql) === TRUE) {
+        echo "Guest checked out successfully!";
+    } else {
+        echo "Error: " . $sql . "<br>" . $conn->error;
+    }
+}
+
+$conn->close();
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Check-out</title>
+</head>
+<body>
+    <h2>Guest Check-out</h2>
+    <form method="POST" action="">
+        <label for="guest_name">Guest Name:</label>
+        <input type="text" name="guest_name" id="guest_name" required><br><br>
+
+        <input type="submit" value="Check-out">
+    </form>
+</body>
+</html>

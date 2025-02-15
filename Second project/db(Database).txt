@@ -1,0 +1,13 @@
+CREATE DATABASE hotel_management;
+USE hotel_management;
+
+CREATE TABLE bookings (
+    id INT(11) AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100),
+    email VARCHAR(100),
+    phone VARCHAR(20),
+    check_in_date DATE,
+    check_out_date DATE,
+    room_type VARCHAR(50),
+    status ENUM('booked', 'checked_in', 'checked_out') DEFAULT 'booked'
+);

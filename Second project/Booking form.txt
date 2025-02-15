@@ -1,0 +1,49 @@
+<?php include 'db.php'; ?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hotel Booking</title>
+</head>
+<body>
+
+<h2>Hotel Booking Form</h2>
+<form action="index.php" method="POST">
+    Name: <input type="text" name="name" required><br><br>
+    Email: <input type="email" name="email" required><br><br>
+    Phone: <input type="text" name="phone" required><br><br>
+    Check-in Date: <input type="date" name="check_in_date" required><br><br>
+    Check-out Date: <input type="date" name="check_out_date" required><br><br>
+    Room Type: 
+    <select name="room_type" required>
+        <option value="Single">Single</option>
+        <option value="Double">Double</option>
+        <option value="Suite">Suite</option>
+    </select><br><br>
+    <input type="submit" name="submit" value="Book Now">
+</form>
+
+<?php
+if (isset($_POST['submit'])) {
+    $name = $_POST['name'];
+    $email = $_POST['email'];
+    $phone = $_POST['phone'];
+    $check_in_date = $_POST['check_in_date'];
+    $check_out_date = $_POST['check_out_date'];
+    $room_type = $_POST['room_type'];
+
+    $sql = "INSERT INTO bookings (name, email, phone, check_in_date, check_out_date, room_type, status) 
+            VALUES ('$name', '$email', '$phone', '$check_in_date', '$check_out_date', '$room_type', 'booked')";
+
+    if ($conn->query($sql) === TRUE) {
+        echo "Booking successful!";
+    } else {
+        echo "Error: " . $sql . "<br>" . $conn->error;
+    }
+}
+?>
+
+</body>
+</html>
